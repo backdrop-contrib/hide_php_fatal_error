@@ -1,0 +1,4 @@
+name = Hide PHP Fatal Error
+description = Redirect to a nice error page on PHP Fatal Error.
+core = 7.x
+php = 5.2
