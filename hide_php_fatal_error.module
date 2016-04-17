@@ -13,19 +13,7 @@
  */
 function hide_php_fatal_error_init() {
   register_shutdown_function('hide_php_fatal_error_shutdown');
-  define('HIDE_PHP_FATAL_ERROR_URL', url(config_get('hide_php_fatal_error.settings', 'hide_php_fatal_error_page')));
-}
-
-/**
- * Implements hook_config_info();
- */
-function hide_php_fatal_error_config_info() {
-  $prefixes = array();
-  $prefixes['hide_php_fatal_error.settings'] = array(
-    'group' => t('Configuration'),
-    'label' => t('Hide PHP Fatal Error settings'),
-  );
-  return $prefixes;
+  define('HIDE_PHP_FATAL_ERROR_URL', url('site-error');
 }
 
 /**
@@ -33,15 +21,6 @@ function hide_php_fatal_error_config_info() {
  */
 function hide_php_fatal_error_menu() {
   $items = array();
-
-  $items['admin/config/development/hide-fatal-error'] = array(
-    'title' => 'Hide fatal PHP errors',
-    'description' => 'Redirect to an error page on PHP fatal error.',
-    'page callback' => 'backdrop_get_form',
-    'page arguments' => array('hide_php_fatal_error_settings_form'),
-    'access arguments' => array('administer hide fatal error'),
-    'file' => 'hide_php_fatal_error.admin.inc',
-  );
 
   $items['site-error'] = array(
     'title' => 'Site error',
@@ -54,21 +33,10 @@ function hide_php_fatal_error_menu() {
 }
 
 /**
- * Implements hook_permission().
- */
-function hide_php_fatal_error_permission() {
-  return array(
-    'administer hide fatal error' => array(
-      'title' => t('Administer Hide PHP Fatal Error'),
-    ),
-  );
-}
-
-/**
  * Menu callback; display a nice error page.
  */
 function hide_php_fatal_error_page() {
-  return t('An error occurred when trying to serve the requested page.');
+  return t('There was a problem serving the requested page.');
 }
 
 /**
@@ -93,7 +61,7 @@ function hide_php_fatal_error_shutdown() {
     $error = array(
       '%type' => isset($types[$error['type']]) ? $severity_msg : 'Unknown error',
       // The standard PHP error handler considers that the error messages
-      // are HTML. We mimick this behavior here.
+      // are HTML. We mimic this behavior here.
       '!message' => filter_xss_admin($error['message']),
       '%file' => $error['file'],
       '%line' => $error['line'],
