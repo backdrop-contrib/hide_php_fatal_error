@@ -13,7 +13,19 @@
  */
 function hide_php_fatal_error_init() {
   register_shutdown_function('hide_php_fatal_error_shutdown');
-  define('HIDE_PHP_FATAL_ERROR_URL', url(variable_get('hide_php_fatal_error_page', 'site-error')));
+  define('HIDE_PHP_FATAL_ERROR_URL', url(config_get('hide_php_fatal_error.settings', 'hide_php_fatal_error_page')));
+}
+
+/**
+ * Implements hook_config_info();
+ */
+function hide_php_fatal_error_config_info() {
+  $prefixes = array();
+  $prefixes['hide_php_fatal_error.settings'] = array(
+    'group' => t('Configuration'),
+    'label' => t('Hide PHP Fatal Error settings'),
+  );
+  return $prefixes;
 }
 
 /**
@@ -23,9 +35,9 @@ function hide_php_fatal_error_menu() {
   $items = array();
 
   $items['admin/config/development/hide-fatal-error'] = array(
-    'title' => 'Hide Fatal Errors',
+    'title' => 'Hide fatal PHP errors',
     'description' => 'Redirect to an error page on PHP fatal error.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('hide_php_fatal_error_settings_form'),
     'access arguments' => array('administer hide fatal error'),
     'file' => 'hide_php_fatal_error.admin.inc',
@@ -56,7 +68,7 @@ function hide_php_fatal_error_permission() {
  * Menu callback; display a nice error page.
  */
 function hide_php_fatal_error_page() {
-  return t('An error occured when trying to serve the requested page.');
+  return t('An error occurred when trying to serve the requested page.');
 }
 
 /**
@@ -66,15 +78,15 @@ function hide_php_fatal_error_shutdown() {
   if(!is_null($error = error_get_last()) && $error['type'] === E_ERROR) {
     header('Location: ' . HIDE_PHP_FATAL_ERROR_URL);
 
-    // We need to reuse the code from _drupal_error_handler_real() to
+    // We need to reuse the code from _backdrop_error_handler_real() to
     // force the maintenance page.
-    require_once DRUPAL_ROOT . '/includes/errors.inc';
+    require_once BACKDROP_ROOT . '/core/includes/errors.inc';
 
-    $types = drupal_error_levels();
+    $types = backdrop_error_levels();
     list($severity_msg, $severity_level) = $types[$error['type']];
 
     if (!function_exists('filter_xss_admin')) {
-      require_once DRUPAL_ROOT . '/includes/common.inc';
+      require_once BACKDROP_ROOT . '/core/includes/common.inc';
     }
 
     // We consider recoverable errors as fatal.

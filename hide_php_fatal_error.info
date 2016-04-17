@@ -1,4 +1,5 @@
 name = Hide PHP Fatal Error
 description = Redirect to a nice error page on PHP Fatal Error.
-core = 7.x
+backdrop = 1.x
 php = 5.2
+type = module
