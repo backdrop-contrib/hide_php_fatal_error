@@ -1,6 +1,6 @@
 # Hide PHP Fatal Error
 
-This module redirects the user to an error page when a PHP fatal error is thrown in Backdrop. The error is logged using watchdog.
+This module redirects the user to an error page when a PHP fatal error is thrown in [Backdrop](https://backdropcms.org/). The error is logged using watchdog.
 
 Note: this module does not handle errors that are not thrown by PHP, like Apache/Nginx 500 errors (e.g. after a redirect loop). Moreover, it only handles FATAL errors, because all other errors can be caught properly by a try/catch block and are natively handled by Backdrop core.
 
