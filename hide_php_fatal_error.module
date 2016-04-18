@@ -23,7 +23,7 @@ function hide_php_fatal_error_menu() {
   $items = array();
 
   $items['site-error'] = array(
-    'title' => 'Site error',
+    'title' => 'Error',
     'page callback' => 'hide_php_fatal_error_page',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
@@ -36,7 +36,7 @@ function hide_php_fatal_error_menu() {
  * Menu callback; display a nice error page.
  */
 function hide_php_fatal_error_page() {
-  return t('There was a problem serving the requested page.');
+  return t('The website encountered an unexpected error. Please try again later.');
 }
 
 /**
