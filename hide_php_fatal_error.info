@@ -1,4 +1,4 @@
-name = Hide PHP Fatal Error
+name = Hide PHP fatal error
 description = Redirect to a nice error page on PHP Fatal Error.
 backdrop = 1.x
 php = 5.2
