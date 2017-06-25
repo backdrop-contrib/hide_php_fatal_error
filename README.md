@@ -20,7 +20,7 @@ website. This module provides another layer of error sanitizing not provided by 
 Current Maintainer
 ------------------
 
-- David Norman (https://github.com/deekayen)
+- None
 
 Maintainers
 -----------
